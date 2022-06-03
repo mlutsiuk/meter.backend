@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meter", "Meter\Meter.csproj", "{615AAFC2-1D64-4673-BBCA-3E756D2EB510}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{615AAFC2-1D64-4673-BBCA-3E756D2EB510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{615AAFC2-1D64-4673-BBCA-3E756D2EB510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{615AAFC2-1D64-4673-BBCA-3E756D2EB510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{615AAFC2-1D64-4673-BBCA-3E756D2EB510}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
