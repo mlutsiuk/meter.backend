@@ -1,10 +1,12 @@
 ﻿using Meter.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Meter.Controllers;
 
 [Route("users")]
+[Authorize]
 public class UsersController : Controller
 {
     private readonly AppDbContext _context;
@@ -30,8 +32,8 @@ public class UsersController : Controller
 
     [Route("{id}")]
     [HttpGet]
-    public async Task<User?> Show(int id)
+    public async Task<User?> Show(int id)    // TODO: 404 on null
     {
-        return await _context.Users.FindAsync(id);
+        return await _context.Users.Include(user => user.Role).FirstOrDefaultAsync(u => u.Id == id);
     }
 }
