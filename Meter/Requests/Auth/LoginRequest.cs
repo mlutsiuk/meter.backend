@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Meter.Requests;
+namespace Meter.Requests.Auth;
 
 public class LoginRequest
 {

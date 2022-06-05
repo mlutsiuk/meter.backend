@@ -1,7 +1,8 @@
 ﻿using Meter.Models;
+using Meter.Repositories;
+using Meter.Requests.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Meter.Controllers;
 
@@ -9,31 +10,44 @@ namespace Meter.Controllers;
 [Authorize]
 public class UsersController : Controller
 {
-    private readonly AppDbContext _context;
-
-    public UsersController(AppDbContext context)
+    private readonly UserRepository _userRepository;
+    public UsersController(UserRepository userRepository)
     {
-        _context = context;
+        _userRepository = userRepository;
     }
 
     [Route("")]
     [HttpGet]
-    public List<User> Index()
+    public Task<IEnumerable<User>> Index()
     {
-        return _context.Users.Include(user => user.Role).ToList();
+        return _userRepository.All();
     }
 
-    // [Route("{id}")]
-    // [HttpPost]
-    // public async Task<User?> Store(int id)
-    // {
-    //     
-    // }
+    [Route("{id}")]
+    [HttpPatch]
+    public async Task<IActionResult> Update(int id, [FromBody]UserUpdateRequest request)    // TODO
+    {
+        throw new NotImplementedException();
+        
+        // if (await _userRepository.Find(id) == null)
+        // {
+        //     return NotFound();
+        // }
+        //
+        // return Json(await _userRepository.Update(id, request));
+    }
 
     [Route("{id}")]
     [HttpGet]
-    public async Task<User?> Show(int id)    // TODO: 404 on null
+    public async Task<IActionResult> Show(int id)    // TODO: 404 on null
     {
-        return await _context.Users.Include(user => user.Role).FirstOrDefaultAsync(u => u.Id == id);
+        var user = await _userRepository.Find(id);
+
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        return Json(user);
     }
 }

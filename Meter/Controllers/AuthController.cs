@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using Meter.Auth;
 using Meter.Models;
-using Meter.Requests;
+using Meter.Requests.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
