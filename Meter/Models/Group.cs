@@ -7,4 +7,11 @@ public class Group
     
     public int OwnerId { get; set; }
     public User Owner { get; set; }
+    
+    public List<Counter> Counters { get; set; }
+
+    public Group()
+    {
+        Counters = new List<Counter>();
+    }
 }
