@@ -8,4 +8,11 @@ public class User
     
     public int RoleId { get; set; }
     public Role Role { get; set; }
+    
+    public List<Group> Groups { get; set; }
+
+    public User()
+    {
+        Groups = new List<Group>();
+    }
 }
