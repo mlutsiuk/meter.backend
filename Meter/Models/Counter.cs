@@ -8,4 +8,11 @@ public class Counter
     
     public int GroupId { get; set; }
     public Group Group { get; set; }
+    
+    public List<Measure> Measures { get; set; }
+
+    public Counter()
+    {
+        Measures = new List<Measure>();
+    }
 }
