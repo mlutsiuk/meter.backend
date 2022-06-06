@@ -9,6 +9,9 @@ public class Counter
     public int GroupId { get; set; }
     public Group Group { get; set; }
     
+    public int IconId { get; set; }
+    public Icon Icon { get; set; }
+    
     public List<Measure> Measures { get; set; }
 
     public Counter()
