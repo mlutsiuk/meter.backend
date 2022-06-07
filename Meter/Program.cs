@@ -15,8 +15,12 @@ JwtAuthOptions jwtAuthOptions = new JwtAuthOptions(builder.Configuration);
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<JwtAuthOptions>();
-builder.Services.AddScoped<UserRepository>();
+
+builder.Services.AddScoped<CounterRepository>();
 builder.Services.AddScoped<GroupRepository>();
+builder.Services.AddScoped<IconRepository>();
+builder.Services.AddScoped<MeasureRepository>();
+builder.Services.AddScoped<UserRepository>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

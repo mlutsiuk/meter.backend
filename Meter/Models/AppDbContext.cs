@@ -9,6 +9,7 @@ public class AppDbContext : DbContext
     public DbSet<Group> Groups { get; set; }
     public DbSet<Counter> Counters { get; set; }
     public DbSet<Measure> Measures { get; set; }
+    public DbSet<Icon> Icons { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
