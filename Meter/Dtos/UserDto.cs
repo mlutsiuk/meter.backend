@@ -1,4 +1,6 @@
-﻿namespace Meter.Dtos;
+﻿using System.Text.Json.Serialization;
+
+namespace Meter.Dtos;
 
 public class UserDto
 {
@@ -8,6 +10,6 @@ public class UserDto
     
     public int RoleId { get; set; }
     public RoleDto Role { get; set; }
-    
+    [JsonIgnore]
     public List<GroupDto> Groups { get; set; }
 }

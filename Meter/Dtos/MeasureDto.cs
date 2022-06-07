@@ -1,4 +1,6 @@
-﻿namespace Meter.Dtos;
+﻿using System.Text.Json.Serialization;
+
+namespace Meter.Dtos;
 
 public class MeasureDto
 {
@@ -7,5 +9,6 @@ public class MeasureDto
     public int Value { get; set; }
     
     public int CounterId { get; set; }
+    [JsonIgnore]
     public CounterDto Counter { get; set; }
 }

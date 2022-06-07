@@ -11,5 +11,6 @@ public class GroupDto
     [JsonIgnore]
     public UserDto Owner { get; set; }
     
+    [JsonIgnore]
     public List<CounterDto> Counters { get; set; }
 }
