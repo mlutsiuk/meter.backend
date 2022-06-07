@@ -20,6 +20,7 @@ public class UserRepository
     {
         return _mapper.Map<IEnumerable<UserDto>>(await _context.Users
             .Include(user => user.Role)
+            .Include(user => user.Groups)
             .ToListAsync()
         );
     }
@@ -28,6 +29,7 @@ public class UserRepository
     {
         return _mapper.Map<UserDto>(await _context.Users
             .Include(user => user.Role)
+            .Include(user => user.Groups)
             .FirstOrDefaultAsync(u => u.Id == id)
         );
     }

@@ -20,11 +20,13 @@ public class AppDbContext : DbContext
        
         Role adminRole = new Role { Id = 1, Name = "admin" };
         Role userRole = new Role { Id = 2, Name = "user" };
-        User adminUser = new User
+        User maksym = new User
             { Id = 1, Email = "maksym.lutsiuk@oa.edu.ua", Password = "12345678", RoleId = adminRole.Id };
+        User anna = new User
+            { Id = 2, Email = "anna.romaniuk@oa.edu.ua", Password = "qwerty", RoleId = adminRole.Id };
 
         modelBuilder.Entity<Role>().HasData(adminRole, userRole);
-        modelBuilder.Entity<User>().HasData(adminUser);
+        modelBuilder.Entity<User>().HasData(maksym, anna);
         
         base.OnModelCreating(modelBuilder);
     }

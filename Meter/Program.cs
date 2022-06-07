@@ -16,6 +16,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<JwtAuthOptions>();
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<GroupRepository>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

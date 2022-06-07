@@ -1,4 +1,6 @@
-﻿namespace Meter.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace Meter.Models;
 
 public class Group
 {
@@ -6,6 +8,7 @@ public class Group
     public string Title { get; set; }
     
     public int OwnerId { get; set; }
+    [JsonIgnore]
     public User Owner { get; set; }
     
     public List<Counter> Counters { get; set; }
