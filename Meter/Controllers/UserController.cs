@@ -8,10 +8,10 @@ namespace Meter.Controllers;
 
 [Route("users")]
 [Authorize]
-public class UsersController : Controller
+public class UserController : Controller
 {
     private readonly UserRepository _userRepository;
-    public UsersController(UserRepository userRepository)
+    public UserController(UserRepository userRepository)
     {
         _userRepository = userRepository;
     }
