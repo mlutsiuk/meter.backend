@@ -1,4 +1,4 @@
-﻿using Meter.Models;
+﻿using Meter.Dtos;
 using Meter.Repositories;
 using Meter.Requests.User;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +18,7 @@ public class UsersController : Controller
 
     [Route("")]
     [HttpGet]
-    public Task<IEnumerable<User>> Index()
+    public Task<IEnumerable<UserDto>> Index()
     {
         return _userRepository.All();
     }

@@ -1,5 +1,7 @@
 using Meter.Auth;
+using Meter.Mapping;
 using Meter.Models;
+using Meter.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -12,7 +14,8 @@ JwtAuthOptions jwtAuthOptions = new JwtAuthOptions(builder.Configuration);
 
 builder.Services.AddControllers();
 
-builder.Services.AddTransient<JwtAuthOptions>();
+builder.Services.AddScoped<JwtAuthOptions>();
+builder.Services.AddScoped<UserRepository>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -31,6 +34,9 @@ builder.Services.AddAuthorization();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
+
 builder.Services.AddSwaggerGen();
 
 

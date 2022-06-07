@@ -1,5 +1,6 @@
-﻿using Meter.Models;
-using Meter.Requests.User;
+﻿using AutoMapper;
+using Meter.Dtos;
+using Meter.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Meter.Repositories;
@@ -7,20 +8,28 @@ namespace Meter.Repositories;
 public class UserRepository
 {
     private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
 
-    public UserRepository(AppDbContext context)
+    public UserRepository(AppDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
-    public async Task<IEnumerable<User>> All()
+    public async Task<IEnumerable<UserDto>> All()
     {
-        return await _context.Users.Include(user => user.Role).ToListAsync();
+        return _mapper.Map<IEnumerable<UserDto>>(await _context.Users
+            .Include(user => user.Role)
+            .ToListAsync()
+        );
     }
 
-    public async Task<User?> Find(int id)
+    public async Task<UserDto?> Find(int id)
     {
-        return await _context.Users.Include(user => user.Role).FirstOrDefaultAsync(u => u.Id == id);
+        return _mapper.Map<UserDto>(await _context.Users
+            .Include(user => user.Role)
+            .FirstOrDefaultAsync(u => u.Id == id)
+        );
     }
 
     // public async Task<User> Update(int id, UserUpdateRequest request)

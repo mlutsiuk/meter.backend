@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using Meter.Auth;
 using Meter.Models;
+using Meter.Repositories;
 using Meter.Requests.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,13 @@ public class AuthController : Controller
 {
     private readonly AppDbContext _context;
     private readonly JwtAuthOptions _jwtAuthOptions;
+    private readonly UserRepository _userRepository;
 
-    public AuthController(AppDbContext context, JwtAuthOptions jwtAuthOptions)
+    public AuthController(AppDbContext context, JwtAuthOptions jwtAuthOptions, UserRepository userRepository)
     {
         _context = context;
         _jwtAuthOptions = jwtAuthOptions;
+        _userRepository = userRepository;
     }
 
     [Route("current")]
@@ -33,10 +36,7 @@ public class AuthController : Controller
         int userId = int.Parse(userIdString);
 
 
-        return Json(await _context.Users
-            .Include(user => user.Role)
-            .FirstOrDefaultAsync(u => u.Id == userId)
-        );
+        return Json(await _userRepository.Find(userId));
     }
 
     [Route("login")]
