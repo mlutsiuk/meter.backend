@@ -38,7 +38,7 @@ public class IconRepository
         return _mapper.Map<IconDto>(icon.Entity);
     }
     
-    public async Task<IconDto> Edit(int id, IconCreateRequest request)
+    public async Task<IconDto> Edit(int id, IconUpdateRequest request)
     {
         var icon = await _context.Icons.FindAsync(id);
         _mapper.Map(request, icon);
