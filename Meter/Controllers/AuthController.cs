@@ -1,12 +1,11 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Meter.Auth;
-using Meter.Models;
+using Meter.Dtos;
 using Meter.Repositories;
 using Meter.Requests.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Meter.Controllers;
 
@@ -14,13 +13,11 @@ namespace Meter.Controllers;
 [Authorize]
 public class AuthController : Controller
 {
-    private readonly AppDbContext _context;
     private readonly JwtAuthOptions _jwtAuthOptions;
     private readonly UserRepository _userRepository;
 
-    public AuthController(AppDbContext context, JwtAuthOptions jwtAuthOptions, UserRepository userRepository)
+    public AuthController(JwtAuthOptions jwtAuthOptions, UserRepository userRepository)
     {
-        _context = context;
         _jwtAuthOptions = jwtAuthOptions;
         _userRepository = userRepository;
     }
@@ -42,9 +39,9 @@ public class AuthController : Controller
     [Route("login")]
     [HttpPost]
     [AllowAnonymous]
-    public IActionResult Login([FromBody] LoginRequest loginRequest)
+    public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-        User? user = AuthenticateUser(loginRequest.Email, loginRequest.Password);
+        UserDto? user = await AuthenticateUser(loginRequest.Email, loginRequest.Password);
 
         if (user == null)
         {
@@ -57,13 +54,12 @@ public class AuthController : Controller
         });
     }
 
-    private User? AuthenticateUser(string email, string password)
+    private async Task<UserDto?> AuthenticateUser(string email, string password)
     {
-        return _context.Users.Include(user => user.Role)
-            .FirstOrDefault(user => user.Email == email && user.Password == password);
+        return await _userRepository.FindByCredentials(email, password);
     }
 
-    private string GenerateJwt(User user)
+    private string GenerateJwt(UserDto user)
     {
         var claims = new List<Claim>
         {

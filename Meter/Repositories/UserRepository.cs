@@ -32,6 +32,14 @@ public class UserRepository
         );
     }
 
+    public async Task<UserDto?> FindByCredentials(string email, string password)
+    {
+        return _mapper.Map<UserDto>(await _context.Users
+            .Include(user => user.Role)
+            .FirstOrDefaultAsync(user => user.Email == email && user.Password == password)
+        );
+    }
+
     // public async Task<User> Update(int id, UserUpdateRequest request)
     // {
     //     var user = await _context.Users.FindAsync(id);
