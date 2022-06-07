@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Meter.Controllers;
 
-[Route("icons")]
+[Route("measures")]
 [Authorize]
 public class MeasureController
 {
