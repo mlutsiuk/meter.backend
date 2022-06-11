@@ -44,7 +44,7 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 builder.Services.AddSwaggerGen();
 
-if (!builder.Environment.IsDevelopment())
+if (builder.Environment.IsDevelopment())
 {
     string connection = builder.Configuration.GetConnectionString("MySQL");
     builder.Services.AddDbContext<AppDbContext>(options =>
@@ -52,7 +52,7 @@ if (!builder.Environment.IsDevelopment())
 }
 else
 {
-    string connection = builder.Configuration.GetConnectionString("SqlServer");
+    string connection = builder.Configuration.GetConnectionString("SQLServer");
     builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
 }
 
