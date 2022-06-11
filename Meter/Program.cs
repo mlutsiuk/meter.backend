@@ -44,10 +44,18 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 builder.Services.AddSwaggerGen();
 
+if (!builder.Environment.IsDevelopment())
+{
+    string connection = builder.Configuration.GetConnectionString("MySQL");
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
+}
+else
+{
+    string connection = builder.Configuration.GetConnectionString("SqlServer");
+    builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connection));
+}
 
-string connection = builder.Configuration.GetConnectionString("MySQL");
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(connection, ServerVersion.AutoDetect(connection)));
 
 var app = builder.Build();
 
@@ -57,6 +65,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseDeveloperExceptionPage();
 
 app.UseHttpsRedirection();
 
