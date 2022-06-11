@@ -10,6 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddCors(opt =>  opt.AddPolicy("CorsPolicy", c =>
+{ 
+    c.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+}));
+
 JwtAuthOptions jwtAuthOptions = new JwtAuthOptions(builder.Configuration);
 
 builder.Services.AddControllers();
@@ -65,6 +72,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("CorsPolicy");
 
 app.UseDeveloperExceptionPage();
 
