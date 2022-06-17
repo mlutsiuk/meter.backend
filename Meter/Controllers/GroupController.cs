@@ -1,4 +1,5 @@
-﻿using Meter.Dtos;
+﻿using System.Security.Claims;
+using Meter.Dtos;
 using Meter.Repositories;
 using Meter.Requests.Group;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +9,7 @@ namespace Meter.Controllers;
 
 [Route("groups")]
 [Authorize]
-public class GroupController
+public class GroupController : Controller
 {
     private readonly GroupRepository _groupRepository;
 
@@ -35,7 +36,13 @@ public class GroupController
     [HttpPost]
     public async Task<GroupDto> Store([FromBody] GroupCreateRequest request)
     {
-        return await _groupRepository.Create(request);
+        string userIdString = User.Claims
+            .ToList()
+            .First(x => x.Type.Equals(ClaimTypes.Name))
+            .Value;
+        int userId = int.Parse(userIdString);
+        
+        return await _groupRepository.Create(request, userId);
     }
 
     [Route("{id}")]

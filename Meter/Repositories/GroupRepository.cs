@@ -31,9 +31,12 @@ public class GroupRepository
         );
     }
 
-    public async Task<GroupDto> Create(GroupCreateRequest request)
+    public async Task<GroupDto> Create(GroupCreateRequest request, int userId)
     {
-        var group = await _context.Groups.AddAsync(_mapper.Map<Group>(request));
+        var groupDraft = _mapper.Map<Group>(request);
+        groupDraft.OwnerId = userId;
+        
+        var group = await _context.Groups.AddAsync(groupDraft);
         await _context.SaveChangesAsync();
         return _mapper.Map<GroupDto>(group.Entity);
     }

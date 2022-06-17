@@ -6,6 +6,4 @@ public class GroupUpdateRequest
 {
     [Required]
     public string Title { get; set; }
-    [Required]
-    public int OwnerId { get; set; }
 }
