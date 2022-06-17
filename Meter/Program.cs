@@ -24,6 +24,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<JwtAuthOptions>();
 
 builder.Services.AddScoped<CounterRepository>();
+builder.Services.AddScoped<DashboardRepository>();
 builder.Services.AddScoped<GroupRepository>();
 builder.Services.AddScoped<IconRepository>();
 builder.Services.AddScoped<MeasureRepository>();
