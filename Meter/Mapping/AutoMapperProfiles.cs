@@ -13,6 +13,7 @@ public class AutoMapperProfiles : Profile
     public AutoMapperProfiles()
     {
         CreateMap<User, UserDto>();
+        CreateMap<User, UserWithRoleDto>();
         
         CreateMap<Role, RoleDto>();
         

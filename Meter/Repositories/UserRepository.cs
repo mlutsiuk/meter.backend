@@ -19,8 +19,6 @@ public class UserRepository
     public async Task<IEnumerable<UserDto>> All()
     {
         return _mapper.Map<IEnumerable<UserDto>>(await _context.Users
-            .Include(user => user.Role)
-            .Include(user => user.Groups)
             .ToListAsync()
         );
     }
@@ -28,15 +26,21 @@ public class UserRepository
     public async Task<UserDto?> Find(int id)
     {
         return _mapper.Map<UserDto>(await _context.Users
+            .FirstOrDefaultAsync(u => u.Id == id)
+        );
+    }
+    
+    public async Task<UserWithRoleDto?> FindWithRole(int id)
+    {
+        return _mapper.Map<UserWithRoleDto>(await _context.Users
             .Include(user => user.Role)
-            .Include(user => user.Groups)
             .FirstOrDefaultAsync(u => u.Id == id)
         );
     }
 
-    public async Task<UserDto?> FindByCredentials(string email, string password)
+    public async Task<UserWithRoleDto?> FindByCredentials(string email, string password)
     {
-        return _mapper.Map<UserDto>(await _context.Users
+        return _mapper.Map<UserWithRoleDto>(await _context.Users
             .Include(user => user.Role)
             .FirstOrDefaultAsync(user => user.Email == email && user.Password == password)
         );

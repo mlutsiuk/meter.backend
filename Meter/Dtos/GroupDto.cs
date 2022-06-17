@@ -8,9 +8,4 @@ public class GroupDto
     public string Title { get; set; }
     
     public int OwnerId { get; set; }
-    [JsonIgnore]
-    public UserDto Owner { get; set; }
-    
-    [JsonIgnore]
-    public List<CounterDto> Counters { get; set; }
 }

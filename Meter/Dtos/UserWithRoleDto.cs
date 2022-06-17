@@ -2,7 +2,7 @@
 
 namespace Meter.Dtos;
 
-public class UserDto
+public class UserWithRoleDto
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -11,4 +11,5 @@ public class UserDto
     public string? Avatar { get; set; }
     
     public int RoleId { get; set; }
+    public RoleDto Role { get; set; }
 }

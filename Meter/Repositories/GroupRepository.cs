@@ -20,7 +20,6 @@ public class GroupRepository
     public async Task<IEnumerable<GroupDto>> All()
     {
         return _mapper.Map<IEnumerable<GroupDto>>(await _context.Groups
-            .Include(group => group.Counters)
             .ToListAsync()
         );
     }
@@ -28,7 +27,6 @@ public class GroupRepository
     public async Task<GroupDto> Find(int id)
     {
         return _mapper.Map<GroupDto>(await _context.Groups
-            .Include(group => group.Counters)
             .FirstOrDefaultAsync(group => group.Id == id)
         );
     }

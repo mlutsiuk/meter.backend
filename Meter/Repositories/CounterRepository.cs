@@ -20,7 +20,6 @@ public class CounterRepository
     public async Task<IEnumerable<CounterDto>> All()
     {
         return _mapper.Map<IEnumerable<CounterDto>>(await _context.Counters
-            .Include(counter => counter.Icon)
             .ToListAsync()
         );
     }
@@ -28,7 +27,6 @@ public class CounterRepository
     public async Task<CounterDto> Find(int id)
     {
         return _mapper.Map<CounterDto>(await _context.Counters
-            .Include(counter => counter.Icon)
             .FirstOrDefaultAsync(counter => counter.Id == id)
         );
     }

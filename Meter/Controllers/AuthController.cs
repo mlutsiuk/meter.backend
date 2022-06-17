@@ -33,7 +33,7 @@ public class AuthController : Controller
         int userId = int.Parse(userIdString);
 
 
-        return Json(await _userRepository.Find(userId));
+        return Json(await _userRepository.FindWithRole(userId));
     }
 
     [Route("login")]
@@ -41,7 +41,7 @@ public class AuthController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-        UserDto? user = await AuthenticateUser(loginRequest.Email, loginRequest.Password);
+        UserWithRoleDto? user = await AuthenticateUser(loginRequest.Email, loginRequest.Password);
 
         if (user == null)
         {
@@ -54,12 +54,12 @@ public class AuthController : Controller
         });
     }
 
-    private async Task<UserDto?> AuthenticateUser(string email, string password)
+    private async Task<UserWithRoleDto?> AuthenticateUser(string email, string password)
     {
         return await _userRepository.FindByCredentials(email, password);
     }
 
-    private string GenerateJwt(UserDto user)
+    private string GenerateJwt(UserWithRoleDto user)
     {
         var claims = new List<Claim>
         {
