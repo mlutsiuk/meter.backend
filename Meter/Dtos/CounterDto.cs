@@ -9,6 +9,7 @@ public class CounterDto
     public string Color { get; set; }
     
     public int GroupId { get; set; }
+    public GroupDto? Group { get;set; }
     
     public int IconId { get; set; }
 }

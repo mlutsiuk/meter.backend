@@ -8,4 +8,5 @@ public class GroupDto
     public string Title { get; set; }
     
     public int OwnerId { get; set; }
+    public UserDto? Owner { get; set; }
 }

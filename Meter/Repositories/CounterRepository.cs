@@ -27,6 +27,8 @@ public class CounterRepository
     public async Task<CounterDto> Find(int id)
     {
         return _mapper.Map<CounterDto>(await _context.Counters
+            .Include(c => c.Group)
+                .ThenInclude(g => g.Owner)
             .FirstOrDefaultAsync(counter => counter.Id == id)
         );
     }
