@@ -18,10 +18,11 @@ public class DashboardRepository
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<MyGroupsDto>> My()
+    public async Task<IEnumerable<MyGroupsDto>> My(int ownerId)
     {
         return await _context
             .Groups
+            .Where(g => g.OwnerId.Equals(ownerId))
             .Select(g => new MyGroupsDto
             {
                 Id = g.Id,
