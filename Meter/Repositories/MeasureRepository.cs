@@ -17,6 +17,14 @@ public class MeasureRepository
         _mapper = mapper;
     }
     
+    public async Task<IEnumerable<MeasureDto>> FindByCounterId(int counterId)
+    {
+        return _mapper.Map<IEnumerable<MeasureDto>>(await _context.Measures
+            .Where(measure => measure.CounterId.Equals(counterId))
+            .ToListAsync()
+        );
+    }
+    
     public async Task<IEnumerable<MeasureDto>> All()
     {
         return _mapper.Map<IEnumerable<MeasureDto>>(await _context.Measures
